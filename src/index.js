@@ -9,22 +9,22 @@ const context = screen.getContext('2d')
 const keyboard = new Keyboard()
 const game = new Game(screen, keyboard, game => {
   const playerHeight = 50
-  const player = new Player(game, 'player', {
+  const player = new Player(game, 'player', 100, {
     x: 0,
     y: screen.height / 2 - playerHeight / 2,
     width: 50,
     height: playerHeight,
   })
 
-  const lineHeight = 50
-  const line = new Line(game, 'line', {
+  const lineHeight = 25
+  const line = new Line(game, 'line', 50, {
     x: 0,
     y: screen.height / 2 - lineHeight / 2,
     width: screen.width,
     height: lineHeight,
   })
 
-  const nextLine = new Line(game, 'line2', {
+  const nextLine = new Line(game, 'line2', 50, {
     x: screen.width,
     y:
       screen.height / 2 -

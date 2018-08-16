@@ -11,24 +11,37 @@ class Game {
     this.initialize()
   }
 
+  getFlatObjectList() {
+    return this.objects.reduce(
+      (allObjects, priorityList) => allObjects.concat(priorityList),
+      []
+    )
+  }
+
   update() {
     if (this.gameOver && this.keyboard.isKeyPressed('Enter')) {
       this.initialize()
     }
-    this.objects.forEach(object => object.update())
+    this.getFlatObjectList().forEach(object => object.update())
   }
 
   draw(context) {
-    this.objects.forEach(object => object.draw(context))
+    this.getFlatObjectList().forEach(object => object.draw(context))
   }
 
   addObject(object) {
-    this.objects.push(object)
+    const stackingPriority = object.getStackingPriority()
+    if (!this.objects[stackingPriority]) {
+      this.objects[stackingPriority] = []
+    }
+    this.objects[stackingPriority].push(object)
     this.objectMap[object.getName()] = object
   }
 
   removeObject(objectToRemove) {
-    this.objects = this.objects.filter(object => object !== objectToRemove)
+    this.objects = this.objects.map(priorityList => {
+      return priorityList.filter(object => object !== objectToRemove)
+    })
     delete this.objectMap[objectToRemove.getName()]
   }
 

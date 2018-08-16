@@ -3,22 +3,29 @@ import GameObject from './GameObject'
 class Line extends GameObject {
   update() {
     if (this.x + this.width < 0) {
+      const player = this.game.getObject('player')
       this.game.removeObject(this)
       const screen = this.game.getScreen()
-      const lineHeight = 50
-      const nextLine = new Line(this.game, this.getName(), {
-        x: screen.width,
-        y:
-          screen.height / 2 -
-          lineHeight / 2 +
-          (Math.random() * lineHeight * 2 - lineHeight),
-        width: screen.width,
-        height: lineHeight,
-      })
-      this.game.addObject(nextLine)
+      const offset = Math.random() * player.height * 2 - player.height
+      const nextLine =
+        this.getName() === 'line'
+          ? this.game.getObject('line2')
+          : this.game.getObject('line')
+      const replacementLine = new Line(
+        this.game,
+        this.getName(),
+        this.getStackingPriority(),
+        {
+          x: screen.width,
+          y: nextLine.y + offset,
+          width: screen.width,
+          height: nextLine.height,
+        }
+      )
+      this.game.addObject(replacementLine)
       return
     }
-    this.x -= 2
+    this.x -= 5
   }
 }
 
