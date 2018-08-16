@@ -5,7 +5,7 @@ class Player extends GameObject {
   update() {
     const keyboard = this.game.getKeyboard()
     const screen = this.game.getScreen()
-    if (!this.game.isColliding(this, this.game.getObject('line'))) {
+    if (!this.game.isColliding(this, this.game.getObject('line')) && !this.game.isColliding(this, this.game.getObject('line2'))) {
       this.game.end()
       return
     }

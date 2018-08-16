@@ -1,7 +1,7 @@
 import Game from './Game'
 import Keyboard from './Keyboard'
 import Player from './Player'
-import GameObject from './GameObject'
+import Line from './Line'
 
 const screen = document.getElementById('screen')
 const context = screen.getContext('2d')
@@ -9,7 +9,7 @@ const context = screen.getContext('2d')
 const keyboard = new Keyboard()
 const game = new Game(screen, keyboard, game => {
   const playerHeight = 50
-  const player = new Player(game, {
+  const player = new Player(game, 'player', {
     x: 0,
     y: screen.height / 2 - playerHeight / 2,
     width: 50,
@@ -17,15 +17,26 @@ const game = new Game(screen, keyboard, game => {
   })
 
   const lineHeight = 50
-  const line = new GameObject(game, {
+  const line = new Line(game, 'line', {
     x: 0,
     y: screen.height / 2 - lineHeight / 2,
     width: screen.width,
     height: lineHeight,
   })
 
-  game.addObject(line, 'line')
-  game.addObject(player, 'player')
+  const nextLine = new Line(game, 'line2', {
+    x: screen.width,
+    y:
+      screen.height / 2 -
+      lineHeight / 2 +
+      (Math.random() * lineHeight * 2 - lineHeight),
+    width: screen.width,
+    height: lineHeight,
+  })
+
+  game.addObject(line)
+  game.addObject(nextLine)
+  game.addObject(player)
 })
 
 const tick = () => {

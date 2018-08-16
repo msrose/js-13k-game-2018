@@ -22,9 +22,14 @@ class Game {
     this.objects.forEach(object => object.draw(context))
   }
 
-  addObject(object, name) {
+  addObject(object) {
     this.objects.push(object)
-    this.objectMap[name] = object
+    this.objectMap[object.getName()] = object
+  }
+
+  removeObject(objectToRemove) {
+    this.objects = this.objects.filter(object => object !== objectToRemove)
+    delete this.objectMap[objectToRemove.getName()]
   }
 
   getObject(name) {
