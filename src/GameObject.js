@@ -1,5 +1,11 @@
 class GameObject {
-  constructor(game, name, stackingPriority, { x, y, width, height }) {
+  constructor(
+    game,
+    name,
+    stackingPriority,
+    { x, y, width, height },
+    params = {}
+  ) {
     this.game = game
     this.x = x
     this.y = y
@@ -7,6 +13,7 @@ class GameObject {
     this.height = height
     this.name = name
     this.stackingPriority = stackingPriority
+    this.params = params
   }
 
   update() {}

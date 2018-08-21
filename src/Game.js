@@ -1,7 +1,8 @@
 class Game {
-  constructor(screen, keyboard, initialize) {
+  constructor(screen, keyboard, initialize, onEnd) {
     this.screen = screen
     this.keyboard = keyboard
+    this.onEnd = onEnd
     this.initialize = () => {
       this.objects = []
       this.objectMap = {}
@@ -77,6 +78,7 @@ class Game {
     this.objects = []
     this.objectMap = {}
     this.gameOver = true
+    this.onEnd(this)
   }
 }
 
